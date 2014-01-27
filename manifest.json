@@ -1,0 +1,29 @@
+{
+    "manifest_version": 2,
+    "name": "My Extension",
+    "version": "1.0",
+    "description": "A plain text description",
+    "icons": {
+        "19": "/img/icon_19.png",
+        "38": "/img/icon_38.png",
+        "64": "/img/icon_64.png"
+    },
+    "browser_action": {
+        "default_icon": {                    // optional
+            "19": "/img/icon_19.png",
+            "38": "/img/icon_38.png",
+            "64": "/img/icon_64.png"
+        },
+        "default_title": "step0 browser action",      // optional; shown in tooltip
+        "default_popup": "/html/popup.html"        // optional
+    },
+    "permissions": ["storage", "alarms", "notifications"],
+    "background": {
+        "scripts": ["/js/lib/jquery-2.1.0.js", "/js/eventPage.js"],
+        "persistent": false
+    },
+    "options_page": "/html/options.html"
+
+
+
+}
