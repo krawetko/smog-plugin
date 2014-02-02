@@ -1,12 +1,17 @@
 BODY {
     white-space: nowrap;
     background-color: white;
-    font-family: sans-serif
+    font-family: sans-serif;
 }
 
 /* Popup.hml */
 
-h5 .lastRefresh {
+.popup footer h5 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.popup footer .lastRefresh {
     font-weight: normal;
     font-style: italic;
 }

@@ -31,9 +31,5 @@
             "/src/web/background/dataRefreshers.js",
             "/src/web/background/backgroundPage.js"],
         "persistent": false
-    },
-    "options_page": "/src/web/options/html/options.html"
-
-
-
+    }
 }
