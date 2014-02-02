@@ -7,6 +7,7 @@
 
 
 var STORAGE = {
-    selectedStation: "selectedStation"
+    selectedStation: "selectedStation",
+    availableStations: "availableStations"
 
 }

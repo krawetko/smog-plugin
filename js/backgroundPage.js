@@ -39,8 +39,7 @@ function getData() {
 
 function getStations() {
     $.getJSON("http://smogalert.pl/api/stations", function (data) {
-        chrome.storage.local.set({stations: data}, function () {
-        });
+        chrome.storage.local.set(new Obj([STORAGE.availableStations, data]));
     });
 }
 chrome.runtime.onInstalled.addListener(function () {

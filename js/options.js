@@ -1,6 +1,6 @@
 function renderAvailableOptions() {
-    chrome.storage.local.get("stations", function (data) {
-        data = data.stations;
+    chrome.storage.local.get(STORAGE.availableStations, function (data) {
+        data = data[STORAGE.availableStations];
         var stations = [];
 
         for (var i = 0; i < data.length; i++) {
@@ -19,9 +19,7 @@ function renderAvailableOptions() {
 }
 
 function submitOptions(selectedStation) {
-    chrome.storage.local.set({selectedStation: selectedStation}, function () {
-
-    });
+    chrome.storage.local.set(new Obj([STORAGE.selectedStation, selectedStation]));
 }
 
 $(function () {

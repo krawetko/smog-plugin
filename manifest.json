@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
-    "name": "My Extension",
+    "name": "Smog Alert",
     "version": "1.0",
-    "description": "A plain text description",
+    "description": "Displays information about air pollutions in Krakow and nearby areas",
 
     "icons": {
         "19": "/img/icon_19.png",
@@ -10,17 +10,17 @@
         "64": "/img/icon_64.png"
     },
     "browser_action": {
-        "default_icon": {                    // optional
+        "default_icon": {
             "19": "/img/icon_19.png",
             "38": "/img/icon_38.png",
             "64": "/img/icon_64.png"
         },
-        "default_title": "step0 browser action",      // optional; shown in tooltip
-        "default_popup": "/html/popup.html"        // optional
+        "default_title": "step0 browser action",
+        "default_popup": "/html/popup.html"
     },
     "permissions": ["storage", "alarms", "notifications"],
     "background": {
-        "scripts": ["/js/lib/jquery-2.1.0.min.js", "/js/eventPage.js"],
+        "scripts": ["/js/lib/jquery-2.1.0.min.js", "/js/utils/objectUtils.js", "/js/storage.js" , "/js/backgroundPage.js"],
         "persistent": false
     },
     "options_page": "/html/options.html"
