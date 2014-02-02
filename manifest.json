@@ -20,7 +20,7 @@
     },
     "permissions": ["storage", "alarms", "notifications"],
     "background": {
-        "scripts": ["/js/lib/jquery-2.1.0.min.js", "/js/utils/objectUtils.js", "/js/storage.js" , "/js/backgroundPage.js"],
+        "scripts": ["/js/lib/jquery-2.1.0.min.js", "/js/smogApi.js", "/js/utils/objectUtils.js", "/js/storage.js" , "/js/backgroundPage.js"],
         "persistent": false
     },
     "options_page": "/html/options.html"

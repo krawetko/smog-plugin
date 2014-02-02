@@ -2,10 +2,10 @@ function getData() {
     chrome.storage.local.get("selectedStation", function (location) {
         location = location.selectedStation;
         if (location == undefined) {
-            location = "krakow-krasinskiego";
+            location = SMOG_API.defaultLocationId;
         }
 
-        var statsUrl = "http://smogalert.pl/api/stats/" + location;
+        var statsUrl = SMOG_API.pollutionStatisticsForLocationUrl + location;
 
 
         $.getJSON(statsUrl, function (data) {
@@ -38,7 +38,7 @@ function getData() {
 };
 
 function getStations() {
-    $.getJSON("http://smogalert.pl/api/stations", function (data) {
+    $.getJSON(SMOG_API.availableStationsUrl, function (data) {
         chrome.storage.local.set(new Obj([STORAGE.availableStations, data]));
     });
 }

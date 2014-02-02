@@ -1,15 +1,19 @@
 function renderAvailableOptions() {
+    function buildOptionHtmlForStation(station) {
+        return "<option value = '" + station["_id"] + "'>" + station["_id"] + "</option>";
+    }
+
     chrome.storage.local.get(STORAGE.availableStations, function (data) {
         data = data[STORAGE.availableStations];
-        var stations = [];
+        var availableStationsSelectOptionsHtml = [];
 
-        for (var i = 0; i < data.length; i++) {
-            stations.push("<option value = '" + data[i]["_id"] + "'>" + data[i]["_id"] + "</option>");
-        }
+        $.each(data, function (index, station) {
+            availableStationsSelectOptionsHtml.push(buildOptionHtmlForStation(station));
+        });
 
-        chrome.storage.local.get("selectedStation", function (location) {
-            $("#stations").html(stations.join(""));
+        chrome.storage.local.get(STORAGE.selectedStation, function (location) {
             location = location.selectedStation;
+            $("#stations").html(availableStationsSelectOptionsHtml.join(""));
             if (location != undefined) {
                 $("#stations").val(location);
             }
