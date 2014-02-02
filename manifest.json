@@ -5,25 +5,25 @@
     "description": "Displays information about air pollutions in Krakow and nearby areas",
 
     "icons": {
-        "19": "/img/icon_19.png",
-        "38": "/img/icon_38.png",
-        "64": "/img/icon_64.png"
+        "19": "/resource/img/icon_19.png",
+        "38": "/resource/img/icon_38.png",
+        "64": "/resource/img/icon_64.png"
     },
     "browser_action": {
         "default_icon": {
-            "19": "/img/icon_19.png",
-            "38": "/img/icon_38.png",
-            "64": "/img/icon_64.png"
+            "19": "/resource/img/icon_19.png",
+            "38": "/resource/img/icon_38.png",
+            "64": "/resource/img/icon_64.png"
         },
-        "default_title": "step0 browser action",
-        "default_popup": "/html/popup.html"
+        "default_title": "Smog Alert",
+        "default_popup": "/src/web/main/html/popup.html"
     },
     "permissions": ["storage", "alarms", "notifications"],
     "background": {
-        "scripts": ["/js/lib/jquery-2.1.0.min.js", "/js/smogApi.js", "/js/utils/objectUtils.js", "/js/storage.js" , "/js/backgroundPage.js"],
+        "scripts": ["/lib/jquery-2.1.0.min.js", "/src/web/commons/smogApi.js", "/src/web/commons/objectUtils.js", "/src/web/commons/storage.js" , "/src/web/background/backgroundPage.js"],
         "persistent": false
     },
-    "options_page": "/html/options.html"
+    "options_page": "/src/web/options/html/options.html"
 
 
 

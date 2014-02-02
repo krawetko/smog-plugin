@@ -5,13 +5,13 @@ function getData() {
             selectedLocation = smogApi.defaultLocationId;
         }
 
-        var statsUrl = smogApi.url.pollutionStatisticsForLocationUrl + selectedLocation;
+        var stationStatisticsUrl = smogApi.url.pollutionStatisticsForLocationUrl + selectedLocation;
 
 
-        $.getJSON(statsUrl, function (selectedStationStatistics) {
+        $.getJSON(stationStatisticsUrl, function (selectedStationStatistics) {
             chrome.storage.local.get(storage.stationStatistics, function (previousData) {
                 var prevStationStatistics = previousData[storage.stationStatistics];
-                showNotificationIfPolutionChanged(prevStationStatistics, selectedStationStatistics);
+                showNotificationIfPollutionsChanged(prevStationStatistics, selectedStationStatistics);
                 chrome.storage.local.set(new Obj([storage.stationStatistics, selectedStationStatistics]), function () {
                     var pollutants = selectedStationStatistics["pollutants"];
                     var normExceeded = false;
@@ -72,16 +72,16 @@ chrome.storage.onChanged.addListener(function (changes) {
 
 });
 
-function showNotificationIfPolutionChanged(prevData, newData) {
-    if (prevData != undefined) {
-        var oldPollutants = prevData["pollutants"];
-        var newPollutants = newData["pollutants"];
+function showNotificationIfPollutionsChanged(previousStationStatistics, selectedStationStatistics) {
+    if (previousStationStatistics != undefined) {
+        var previousPollutions = previousStationStatistics[smogApi.props.stationStatistics.pollutions];
+        var currentPollutions = selectedStationStatistics[smogApi.props.stationStatistics.pollutions];
         var oldCount = 0, newCount = 0;
-        for (var i = 0; i < oldPollutants.length; i++) {
-            if (oldPollutants[i] && oldPollutants[i]["normPercent"] > 100) {
+        for (var i = 0; i < previousPollutions.length; i++) {
+            if (previousPollutions[i] && previousPollutions[i]["normPercent"] > 100) {
                 oldCount++;
             }
-            if (newPollutants[i] && newPollutants[i]["normPercent"] > 100) {
+            if (currentPollutions[i] && currentPollutions[i]["normPercent"] > 100) {
                 newCount++;
             }
         }

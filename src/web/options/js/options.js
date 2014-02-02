@@ -1,6 +1,8 @@
 function renderAvailableOptions() {
-    function buildOptionHtmlForStation(station) {
-        return "<option value = '" + station[smogApi.props.stationLocation.id] + "'>" + station[smogApi.props.stationLocation.address] + ", " + station[smogApi.props.stationLocation.cityArea] + "</option>";
+    function buildOptionHtmlForStation(stationLocation) {
+        return "<option value = '" + stationLocation[smogApi.props.stationLocation.id] + "'>"
+            + stationLocation[smogApi.props.stationLocation.address] + ", " + stationLocation[smogApi.props.stationLocation.cityArea]
+            + "</option>";
     }
 
     chrome.storage.local.get(storage.availableStations, function (data) {
