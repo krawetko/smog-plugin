@@ -6,8 +6,13 @@
  */
 
 
-var STORAGE = {
+/*
+ * Defines properties names used in a browser's local storage
+ */
+var storage = {
     selectedStation: "selectedStation",
-    availableStations: "availableStations"
+    availableStations: "availableStations",
+
+    stationStatistics: "stationStatistics"
 
 }

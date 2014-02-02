@@ -1,7 +1,7 @@
 function refreshPage() {
 
-    chrome.storage.local.get("pollution", function (data) {
-        data = data.pollution;
+    chrome.storage.local.get(storage.stationStatistics, function (data) {
+        data = data[storage.stationStatistics];
         var items = [];
         for (var i = 0; i < data["pollutants"].length; i++) {
 

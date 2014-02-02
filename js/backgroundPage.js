@@ -1,19 +1,19 @@
 function getData() {
-    chrome.storage.local.get("selectedStation", function (location) {
-        location = location.selectedStation;
-        if (location == undefined) {
-            location = SMOG_API.defaultLocationId;
+    chrome.storage.local.get(storage.selectedStation, function (data) {
+        var selectedLocation = data.selectedStation;
+        if (selectedLocation == undefined) {
+            selectedLocation = smogApi.defaultLocationId;
         }
 
-        var statsUrl = SMOG_API.pollutionStatisticsForLocationUrl + location;
+        var statsUrl = smogApi.url.pollutionStatisticsForLocationUrl + selectedLocation;
 
 
-        $.getJSON(statsUrl, function (data) {
-            chrome.storage.local.get("pollution", function (prevData) {
-                prevData = prevData.pollution;
-                showNotificationIfPolutionChanged(prevData, data);
-                chrome.storage.local.set({pollution: data}, function () {
-                    var pollutants = data["pollutants"];
+        $.getJSON(statsUrl, function (selectedStationStatistics) {
+            chrome.storage.local.get(storage.stationStatistics, function (previousData) {
+                var prevStationStatistics = previousData[storage.stationStatistics];
+                showNotificationIfPolutionChanged(prevStationStatistics, selectedStationStatistics);
+                chrome.storage.local.set(new Obj([storage.stationStatistics, selectedStationStatistics]), function () {
+                    var pollutants = selectedStationStatistics["pollutants"];
                     var normExceeded = false;
                     for (var i = 0; i < pollutants.length; i++) {
                         if (pollutants[i]["normPercent"] > 100) {
@@ -38,8 +38,8 @@ function getData() {
 };
 
 function getStations() {
-    $.getJSON(SMOG_API.availableStationsUrl, function (data) {
-        chrome.storage.local.set(new Obj([STORAGE.availableStations, data]));
+    $.getJSON(smogApi.url.availableStationsUrl, function (data) {
+        chrome.storage.local.set(new Obj([storage.availableStations, data]));
     });
 }
 chrome.runtime.onInstalled.addListener(function () {
@@ -64,8 +64,8 @@ chrome.alarms.onAlarm.addListener(function (alarm) {
 
 chrome.storage.onChanged.addListener(function (changes) {
 
-    if (changes.hasOwnProperty("selectedStation")) {
-        if (changes["selectedStation"].newValue != undefined) {
+    if (changes.hasOwnProperty(storage.selectedStation)) {
+        if (changes[storage.selectedStation].newValue != undefined) {
             getData();
         }
     }
@@ -86,7 +86,7 @@ function showNotificationIfPolutionChanged(prevData, newData) {
             }
         }
         if (oldCount < newCount) {
-            chrome.notifications.create("SmogAert", {
+            chrome.notifications.create("SmogAlert", {
                 type: "basic",
                 title: "Smog alert",
                 message: "New pollutions appeared",
@@ -94,7 +94,7 @@ function showNotificationIfPolutionChanged(prevData, newData) {
             }, function () {
             });
         } else if (oldCount > newCount) {
-            chrome.notifications.create("SmogAert", {
+            chrome.notifications.create("SmogAlert", {
                 type: "basic",
                 title: "Smog alert",
                 message: "There are no pollutions",

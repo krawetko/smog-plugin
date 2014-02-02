@@ -1,21 +1,21 @@
 function renderAvailableOptions() {
     function buildOptionHtmlForStation(station) {
-        return "<option value = '" + station["_id"] + "'>" + station["_id"] + "</option>";
+        return "<option value = '" + station[smogApi.props.stationLocation.id] + "'>" + station[smogApi.props.stationLocation.address] + ", " + station[smogApi.props.stationLocation.cityArea] + "</option>";
     }
 
-    chrome.storage.local.get(STORAGE.availableStations, function (data) {
-        data = data[STORAGE.availableStations];
-        var availableStationsSelectOptionsHtml = [];
+    chrome.storage.local.get(storage.availableStations, function (data) {
+        var availableStations = data[storage.availableStations],
+            availableStationsSelectOptionsHtml = [];
 
-        $.each(data, function (index, station) {
+        $.each(availableStations, function (index, station) {
             availableStationsSelectOptionsHtml.push(buildOptionHtmlForStation(station));
         });
 
-        chrome.storage.local.get(STORAGE.selectedStation, function (location) {
-            location = location.selectedStation;
+        chrome.storage.local.get(storage.selectedStation, function (data) {
+            var selectedStation = data.selectedStation;
             $("#stations").html(availableStationsSelectOptionsHtml.join(""));
-            if (location != undefined) {
-                $("#stations").val(location);
+            if (selectedStation != undefined) {
+                $("#stations").val(selectedStation);
             }
         });
 
@@ -23,8 +23,9 @@ function renderAvailableOptions() {
 }
 
 function submitOptions(selectedStation) {
-    chrome.storage.local.set(new Obj([STORAGE.selectedStation, selectedStation]));
+    chrome.storage.local.set(new Obj([storage.selectedStation, selectedStation]));
 }
+
 
 $(function () {
 
