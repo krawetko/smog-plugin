@@ -3,6 +3,7 @@
     "name": "My Extension",
     "version": "1.0",
     "description": "A plain text description",
+
     "icons": {
         "19": "/img/icon_19.png",
         "38": "/img/icon_38.png",
@@ -19,7 +20,7 @@
     },
     "permissions": ["storage", "alarms", "notifications"],
     "background": {
-        "scripts": ["/js/lib/jquery-2.1.0.js", "/js/eventPage.js"],
+        "scripts": ["/js/lib/jquery-2.1.0.min.js", "/js/eventPage.js"],
         "persistent": false
     },
     "options_page": "/html/options.html"
