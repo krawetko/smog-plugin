@@ -20,7 +20,15 @@
     },
     "permissions": ["storage", "alarms", "notifications"],
     "background": {
-        "scripts": ["/lib/jquery-2.1.0.min.js", "/src/web/commons/smogApi.js", "/src/web/commons/objectUtils.js", "/src/web/commons/storage.js" , "/src/web/background/backgroundPage.js"],
+        "scripts": [
+            "/lib/jquery-2.1.0.min.js",
+            "/src/web/commons/smogApi.js",
+            "/src/web/commons/objectUtils.js",
+            "/src/web/commons/storage.js" ,
+            "/src/web/background/notifications.js",
+            "/src/web/background/alarms.js",
+            "/src/web/background/dataRefreshers.js",
+            "/src/web/background/backgroundPage.js"],
         "persistent": false
     },
     "options_page": "/src/web/options/html/options.html"
