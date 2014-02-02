@@ -5,46 +5,76 @@
  * Time: 15:29
  */
 function refreshSelectedStationStatistics() {
-    chrome.storage.local.get(storage.selectedStation, function (data) {
+    chrome.storage.local.get(storage.selectedStation, function (selectedStationData) {
+        var selectedStationStatisticsUrl = createSelectedStationStatistcsUrl(selectedStationData);
+
+        $.getJSON(selectedStationStatisticsUrl, updateSelectedStationStatistics);
+    });
+
+    function updateSelectedStationStatistics(selectedStationStatisticsJSON) {
+        chrome.storage.local.get(storage.stationStatistics, function (previousStationData) {
+            var previousStationStatistics = previousStationData[storage.stationStatistics];
+
+            showNotificationIfNecessary(previousStationStatistics, selectedStationStatisticsJSON);
+            saveNewDataToStore();
+
+        });
+
+        function saveNewDataToStore() {
+            chrome.storage.local.set(new Obj([storage.stationStatistics, selectedStationStatisticsJSON]), updateBrowserActionIcons(selectedStationStatisticsJSON));
+        }
+
+    }
+
+    function createSelectedStationStatistcsUrl(data) {
         var selectedLocation = data.selectedStation;
         if (selectedLocation == undefined) {
             selectedLocation = smogApi.defaultLocationId;
         }
 
         var stationStatisticsUrl = smogApi.url.pollutionStatisticsForLocationUrl + selectedLocation;
+        return stationStatisticsUrl;
+    }
 
+    function updateBrowserActionIcons(selectedStationStatisticsJSON) {
 
-        $.getJSON(stationStatisticsUrl, function (selectedStationStatistics) {
-            chrome.storage.local.get(storage.stationStatistics, function (previousData) {
-                var prevStationStatistics = previousData[storage.stationStatistics];
-                showNotificationIfPollutionsChanged(prevStationStatistics, selectedStationStatistics);
-                chrome.storage.local.set(new Obj([storage.stationStatistics, selectedStationStatistics]), function () {
-                    var pollutions = selectedStationStatistics[smogApi.props.stationStatistics.pollutions];
-                    var normExceeded = false;
-                    $.each(pollutions, function (index, pollution) {
-                        if (pollution[smogApi.props.stationStatistics.pollution.maxSafeValuePercent] > 100) {
-                            normExceeded = true;
-                            return false; // break the loop
-                        }
-                    });
+        return function () {
+            var pollutions = selectedStationStatisticsJSON[smogApi.props.stationStatistics.pollutions];
+            var numberOfPollutionsExceedingMaxSafeValue = calculateNumberOfPollutionsExceedingMaxSafeValue(pollutions);
+            if (numberOfPollutionsExceedingMaxSafeValue > 0) {
+                createWarningIcon(numberOfPollutionsExceedingMaxSafeValue);
+            } else {
+                createOkIcon();
+            }
+        }
 
-                    if (normExceeded) {
-                        chrome.browserAction.setBadgeText({text: "!"});
-                        chrome.browserAction.setBadgeBackgroundColor({color: "#FF0000"})
-                    } else {
-                        chrome.browserAction.setBadgeText({text: "OK"});
-                        chrome.browserAction.setBadgeBackgroundColor({color: "#00FF00"})
-                    }
-                });
+        function createWarningIcon(numberOfPollutionsExceedingMaxSafeValue) {
+            var redColor = "#FF0000";
+            chrome.browserAction.setBadgeText({text: numberOfPollutionsExceedingMaxSafeValue + ''});
+            chrome.browserAction.setBadgeBackgroundColor({color: redColor})
+        }
 
+        function createOkIcon() {
+            var greenColor = "#00FF00";
+            chrome.browserAction.setBadgeText({text: "OK"});
+            chrome.browserAction.setBadgeBackgroundColor({color: greenColor})
+        }
+
+        function calculateNumberOfPollutionsExceedingMaxSafeValue(pollutions) {
+            var numberOfPollutionsExceedingMaxSafeValue = 0;
+            $.each(pollutions, function (index, pollution) {
+                if (pollution[smogApi.props.stationStatistics.pollution.maxSafeValuePercent] > 100) {
+                    numberOfPollutionsExceedingMaxSafeValue += 1;
+                }
             });
+            return numberOfPollutionsExceedingMaxSafeValue;
+        }
+    }
 
-        });
-    });
 };
 
 function refreshAvailableStations() {
-    $.getJSON(smogApi.url.availableStationsUrl, function (data) {
-        chrome.storage.local.set(new Obj([storage.availableStations, data]));
+    $.getJSON(smogApi.url.availableStationsUrl, function (availableStationsData) {
+        chrome.storage.local.set(new Obj([storage.availableStations, availableStationsData]));
     });
 }

@@ -9,7 +9,23 @@ chrome.runtime.onInstalled.addListener(function () {
     refreshSelectedStationStatistics();
 });
 
-chrome.alarms.onAlarm.addListener(function (alarm) {
+chrome.alarms.onAlarm.addListener(alarmListener);
+
+chrome.storage.onChanged.addListener(selectedStationChangedListener);
+
+function selectedStationChangedListener(storageChanges) {
+
+    function hasSelectedStationChanged() {
+        return storageChanges.hasOwnProperty(storage.selectedStation);
+    }
+
+    if (hasSelectedStationChanged()) {
+        refreshSelectedStationStatistics();
+    }
+
+}
+
+function alarmListener(alarm) {
     var alarmName = alarm.name;
     switch (alarmName) {
         case alarms.refreshCurrentStationStatistics :
@@ -21,19 +37,7 @@ chrome.alarms.onAlarm.addListener(function (alarm) {
         default :
             console.log("Invalid alarm -> " + alarmName);
     }
-});
-
-chrome.storage.onChanged.addListener(function (changes) {
-
-    function hasSelectedStationChanged() {
-        return changes.hasOwnProperty(storage.selectedStation);
-    }
-
-    if (hasSelectedStationChanged()) {
-        refreshSelectedStationStatistics();
-    }
-
-});
+}
 
 
 

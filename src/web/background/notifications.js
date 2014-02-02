@@ -4,7 +4,7 @@
  * Date: 02.02.14
  * Time: 15:18
  */
-function showNotificationIfPollutionsChanged(previousStationStatistics, selectedStationStatistics) {
+function showNotificationIfNecessary(previousStationStatistics, selectedStationStatistics) {
     if (previousStationStatistics != undefined) {
         var previousPollutions = previousStationStatistics[smogApi.props.stationStatistics.pollutions];
         var currentPollutions = selectedStationStatistics[smogApi.props.stationStatistics.pollutions];
