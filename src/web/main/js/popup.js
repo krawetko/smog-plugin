@@ -6,7 +6,8 @@ function refreshPage() {
 
     chrome.storage.local.get(storage.stationStatistics, function (data) {
         var stationStatistics = data[storage.stationStatistics],
-            stationPollutions = stationStatistics[smogApi.props.stationStatistics.pollutions];
+            stationPollutions = stationStatistics[smogApi.props.stationStatistics.pollutions],
+            lastRefreshDate = stationStatistics[smogApi.props.stationStatistics.lastRefresh];
         var pollutionsTableRows = [];
 
         $.each(stationPollutions, function (index, pollution) {
@@ -21,6 +22,7 @@ function refreshPage() {
             html: pollutionsTableRows.join("")
         }).appendTo("#content");
         $('#toptitle').text(stationStatistics[smogApi.props.stationStatistics.address]);
+        $('h5').children('.lastRefresh').text(lastRefreshDate)
     });
 }
 

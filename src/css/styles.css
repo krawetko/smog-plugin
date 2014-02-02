@@ -3,3 +3,10 @@ BODY {
     background-color: white;
     font-family: sans-serif
 }
+
+/* Popup.hml */
+
+h5 .lastRefresh {
+    font-weight: normal;
+    font-style: italic;
+}

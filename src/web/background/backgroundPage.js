@@ -30,9 +30,11 @@ function alarmListener(alarm) {
     switch (alarmName) {
         case alarms.refreshCurrentStationStatistics :
             refreshSelectedStationStatistics();
+            console.log("Station statistics refreshed");
             break;
         case alarms.refreshAvailableStations :
             refreshAvailableStations();
+            console.log("Available stations refreshed");
             break;
         default :
             console.log("Invalid alarm -> " + alarmName);

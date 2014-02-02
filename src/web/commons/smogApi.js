@@ -23,6 +23,7 @@ smogApi.props.stationStatistics = {
     address: "city",
     date: "date",
     stationId: "station_id",
+    lastRefresh: "lastRefresh",
 
     pollution: {
         substance: "pollutant",

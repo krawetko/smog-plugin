@@ -21,6 +21,7 @@ function refreshSelectedStationStatistics() {
         });
 
         function saveNewDataToStore() {
+            selectedStationStatisticsJSON[smogApi.props.stationStatistics.lastRefresh] = $.formatDateTime('dd-M-yy hh:ii:ss', new Date());
             chrome.storage.local.set(new Obj([storage.stationStatistics, selectedStationStatisticsJSON]), updateBrowserActionIcons(selectedStationStatisticsJSON));
         }
 

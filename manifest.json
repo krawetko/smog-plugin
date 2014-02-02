@@ -22,6 +22,7 @@
     "background": {
         "scripts": [
             "/lib/jquery-2.1.0.min.js",
+            "/lib/jquery.formatDateTime.js",
             "/src/web/commons/smogApi.js",
             "/src/web/commons/objectUtils.js",
             "/src/web/commons/storage.js" ,
