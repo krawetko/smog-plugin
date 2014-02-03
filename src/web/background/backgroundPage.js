@@ -3,7 +3,7 @@ chrome.runtime.onInstalled.addListener(function () {
         periodInMinutes: 1
     });
     chrome.alarms.create(alarms.refreshAvailableStations, {
-        periodInMinutes: 60
+        periodInMinutes: 2
     });
     refreshAvailableStations();
     refreshSelectedStationStatistics();
@@ -30,14 +30,11 @@ function alarmListener(alarm) {
     switch (alarmName) {
         case alarms.refreshCurrentStationStatistics :
             refreshSelectedStationStatistics();
-            console.log("Station statistics refreshed");
             break;
         case alarms.refreshAvailableStations :
             refreshAvailableStations();
-            console.log("Available stations refreshed");
             break;
         default :
-            console.log("Invalid alarm -> " + alarmName);
     }
 }
 
