@@ -5,44 +5,49 @@ BODY {
     margin: 0px;
 }
 
-header {
-    background-color: black;
-    border-radius: 2px;
+#stations {
+    width: 100%;
+    margin-bottom: 0;
 }
 
+#content {
+    margin: 5px;
+}
 
-ul.dropdown,
-.dropdown ul {
-    margin: 0;
+#statistics table {
+    width: 100%;
+    border-spacing: 5px;
+    border-collapse: separate;
+}
+
+#statistics table td {
     padding: 0;
 }
 
-ul.dropdown ul {
-    visibility: hidden;
-}
-.dropdown li {
-    display: inline;
-}
-
-li a.dir {
-    color: white;
-    display: table;
-    font-size: 0.7em;
+#statistics table td.first {
+    width: 1px;
     font-weight: bold;
-    padding: 8px;
-    margin-left: auto;
-    margin-right: auto;
-    text-decoration: none;
-    text-transform: uppercase;
+    white-space: nowrap;
 }
 
-li a.dir:hover {
-    background-color: #2e2e2e;
-    color: #76b900;
+#statistics table td.pollution {
+    background-color: lightgray;
 }
 
-li:hover > ul{
-    visibility: visible;
+#statistics table td.pollution > div{
+    text-align: center;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color: white;
+    font-weight: bold;
+
+}
+
+#statistics table td.pollution > div.exceeded{
+    background-color: #D70000;
+}
+#statistics table td.pollution > div.ok{
+    background-color: green;
 }
 
 footer h5 {

@@ -1,25 +1,39 @@
 function refreshPage() {
 
-    function createTableColumn(renderedValue) {
+    function createTableColumn(renderedValue, cssClass) {
         return $("<td/>",
             {
+                class: cssClass || '',
                 text: renderedValue
             }
         );
     }
 
+    function createTablePercentColumn(renderedValue, maxPollutionPercent) {
+        var width = (renderedValue / maxPollutionPercent) * 100;
+        var cssClass = renderedValue > 100 ? 'exceeded' : 'ok';
+        return $("<td/>",
+            {
+                class: 'pollution'
+
+            }
+        ).append($('<div/>').css('width', width + '%').addClass(cssClass).text(renderedValue + '%'));
+    }
+
     chrome.storage.local.get(storage.stationStatistics, function (data) {
         var stationStatistics = data[storage.stationStatistics],
-            stationPollutions = stationStatistics[smogApi.props.stationStatistics.pollutions],
+            stationPollutions = stationStatistics[smogApi.props.stationStatistics.pollutions].sort(descendingPollutionsSorter),
+            maxPollutionPercent = +stationPollutions[0][smogApi.props.stationStatistics.pollution.maxSafeValuePercent],
             lastRefreshDate = stationStatistics[smogApi.props.stationStatistics.lastRefresh];
+
 
         var $pollutionsTableRows = $("<table/>");
 
         $.each(stationPollutions, function (index, pollution) {
             $pollutionsTableRows.append(
                 $('<tr/>')
-                    .append(createTableColumn(pollution[smogApi.props.stationStatistics.pollution.substance]))
-                    .append(createTableColumn(pollution[smogApi.props.stationStatistics.pollution.maxSafeValuePercent] + "%"))
+                    .append(createTableColumn(pollution[smogApi.props.stationStatistics.pollution.substance], 'first'))
+                    .append(createTablePercentColumn(+pollution[smogApi.props.stationStatistics.pollution.maxSafeValuePercent], maxPollutionPercent))
             );
         });
 
@@ -83,6 +97,10 @@ function stationStatisticsChangedListener(storageChanges) {
         refreshPage();
     }
 
+}
+
+function descendingPollutionsSorter(pollutionA, pollutionB) {
+    return pollutionB[smogApi.props.stationStatistics.pollution.maxSafeValuePercent] - pollutionA[smogApi.props.stationStatistics.pollution.maxSafeValuePercent]
 }
 
 renderAvailableOptions();

@@ -2,7 +2,11 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="/src/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="/lib/bootstrap/css/bootstrap.min.css">
+
     <script type="text/JavaScript" src="/lib/jquery-2.1.0.min.js"></script>
+    <script type="text/JavaScript" src="/lib/bootstrap/js/bootstrap.min.js"></script>
+
     <script type="text/JavaScript" src="/src/web/commons/objectUtils.js"></script>
     <script type="text/JavaScript" src="/src/web/commons/storage.js"></script>
     <script type="text/JavaScript" src="/src/web/commons/smogApi.js"></script>
@@ -10,20 +14,9 @@
 </head>
 <body class="popup">
 <header>
-    <ul class="dropdown">
-        <li>
-            <a href="#" class="dir">Choose Location</a>
-            <ul>
-                <li><a href="./">Download Drivers</a></li>
-                <li><a href="./">Driver Widget</a></li>
-                <li><a href="./">NVIDIA Software</a></li>
-            </ul>
-        </li>
-    </ul>
+    <select id="stations" name="stations">
+    </select>
 </header>
-<select id="stations" name="stations">
-</select>
-
 <div id="content">
     <div id="statistics"></div>
     <footer>
