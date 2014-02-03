@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "Smog Alert",
+    "name": "Krakow Smog",
     "version": "1.0",
     "description": "Displays information about air pollutions in Krakow and nearby areas",
 
@@ -22,7 +22,7 @@
     "background": {
         "scripts": [
             "/lib/jquery-2.1.0.min.js",
-            "/lib/jquery.formatDateTime.js",
+            "/lib/jquery.formatDateTime.min.js",
             "/src/web/commons/smogApi.js",
             "/src/web/commons/objectUtils.js",
             "/src/web/commons/storage.js" ,
