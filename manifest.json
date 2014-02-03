@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Krakow Smog",
     "version": "1.0",
-    "description": "Displays information about air pollutions in Krakow and nearby areas",
+    "description": "Displays information about air pollution in Krakow and nearby areas",
 
     "icons": {
         "19": "/resource/img/icon_19.png",
