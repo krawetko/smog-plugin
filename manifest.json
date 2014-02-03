@@ -4,18 +4,17 @@
     "version": "1.0",
     "description": "Displays information about air pollution in Krakow and nearby areas",
 
+
     "icons": {
-        "19": "/resource/img/icon_19.png",
-        "38": "/resource/img/icon_38.png",
-        "64": "/resource/img/icon_64.png"
+        "48": "/resource/img/smog_48.png",
+        "128": "/resource/img/smog_128.png"
     },
     "browser_action": {
         "default_icon": {
-            "19": "/resource/img/icon_19.png",
-            "38": "/resource/img/icon_38.png",
-            "64": "/resource/img/icon_64.png"
+            "19": "/resource/img/smog_19.png",
+            "38": "/resource/img/smog_38.png"
         },
-        "default_title": "Smog Alert",
+        "default_title": "Krakow Smog",
         "default_popup": "/src/web/main/html/popup.html"
     },
     "permissions": ["storage", "alarms", "notifications"],
