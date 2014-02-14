@@ -6,7 +6,7 @@
  */
 function refreshSelectedStationStatistics() {
     chrome.storage.local.get(storage.selectedStationId, function (selectedStationData) {
-        var selectedStationStatisticsUrl = createSelectedStationStatistcsUrl(selectedStationData);
+        var selectedStationStatisticsUrl = createSelectedStationStatisticsUrl(selectedStationData);
 
         $.getJSON(selectedStationStatisticsUrl, updateSelectedStationStatistics);
     });
@@ -27,10 +27,11 @@ function refreshSelectedStationStatistics() {
 
     }
 
-    function createSelectedStationStatistcsUrl(data) {
+    function createSelectedStationStatisticsUrl(data) {
         var selectedLocation = data.selectedStationId;
         if (selectedLocation == undefined) {
             selectedLocation = smogApi.defaultLocationId;
+            chrome.storage.local.set(new Obj([storage.selectedStationId, smogApi.defaultLocationId], [storage.selectedStationFullAddress, smogApi.defaultLocationFullAddress]));
         }
 
         var stationStatisticsUrl = smogApi.url.pollutionStatisticsForLocationUrl + selectedLocation;

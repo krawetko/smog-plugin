@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
-    "name": "Krakow Smog",
-    "version": "1.2",
-    "description": "Displays information about air pollution in Krakow and nearby areas",
+    "name": "Kraków Smog",
+    "version": "1.2.2",
+    "description": "Wyświetla informacje o zanieczyszczeniach powietrza w Krakowie i okolicach.",
 
 
     "icons": {

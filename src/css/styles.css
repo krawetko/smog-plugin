@@ -20,6 +20,7 @@ header .btn.dropdown-toggle {
 header .open>.dropdown-menu {
     display: block;
     visibility: visible;
+    width: 99%;
 }
 
 header .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus, .dropdown-submenu:hover>a, .dropdown-submenu:focus>a {

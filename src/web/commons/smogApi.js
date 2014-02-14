@@ -9,8 +9,9 @@
  * Defines API provided by http://smogalert.pl
  */
 var smogApi = {
-    defaultLocationId: "krakow-krasinskiego"
-}
+    defaultLocationId: "krakow-krasinskiego",
+    defaultLocationFullAddress: "Kraków, Al.Krasińskiego, Centrum"
+};
 
 smogApi.url = {
     availableStationsUrl: "http://smogalert.pl/api/stations",
