@@ -26,7 +26,7 @@ function showNotificationIfNecessary(previousStationStatistics, selectedStationS
                 type: "basic",
                 title: "Smog alert",
                 message: "New pollutions appeared!",
-                iconUrl: "/img/icon_64.png"
+                iconUrl: "/img/smog_48.png"
             }, function () {
             });
         } else if (currentCount == 0 && oldCount > 0) {
@@ -34,7 +34,7 @@ function showNotificationIfNecessary(previousStationStatistics, selectedStationS
                 type: "basic",
                 title: "Smog alert",
                 message: "Air is clear!",
-                iconUrl: "/img/icon_64.png"
+                iconUrl: "/img/smog_48.png"
             }, function () {
             });
         }
