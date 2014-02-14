@@ -59,8 +59,6 @@ function renderAvailableOptions() {
 
         $.each(availableStations, function (index, station) {
             $availableStationsSelect.append(buildStationOption(station));
-            chrome.storage.local.set(new Obj([storage.geoLocation(station[smogApi.props.stationLocation.id]), station[smogApi.props.stationLocation.location][smogApi.props.geoLocation.latitude] + ',' + station[smogApi.props.stationLocation.location][smogApi.props.geoLocation.longitude]]));
-
         });
 
         updateBodyWidth();

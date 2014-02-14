@@ -77,6 +77,17 @@ function refreshSelectedStationStatistics() {
 
 function refreshAvailableStations() {
     $.getJSON(smogApi.url.availableStationsUrl, function (availableStationsData) {
+        $.each(availableStationsData, function (index, station) {
+            var stationLatitudeAndLongitude =
+                station[smogApi.props.stationLocation.location][smogApi.props.geoLocation.latitude]
+                    + ',' +
+                    station[smogApi.props.stationLocation.location][smogApi.props.geoLocation.longitude];
+            chrome.storage.local.set(
+                new Obj(
+                    [storage.geoLocation(station[smogApi.props.stationLocation.id]), stationLatitudeAndLongitude],
+                    [station[smogApi.props.stationLocation.id], station]));
+
+        });
         chrome.storage.local.set(new Obj([storage.availableStations, availableStationsData]));
     });
 }

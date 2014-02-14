@@ -40,12 +40,6 @@ header .dropdown-menu {
     width: auto;
 }
 
-/*#selectedStation {*/
-/*background: url("/resource/img/Maps-32.png") no-repeat;*/
-/*background-size: 1.5em;*/
-/*overflow: visible;*/
-/*}*/
-
 #stations {
     width: 100%;
     margin-bottom: 0;
