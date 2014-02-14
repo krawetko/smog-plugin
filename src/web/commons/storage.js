@@ -10,9 +10,14 @@
  * Defines properties names used in a browser's local storage
  */
 var storage = {
-    selectedStation: "selectedStation",
+    selectedStationId: "selectedStationId",
+    selectedStationFullAddress: "selectedStationFullAddress",
     availableStations: "availableStations",
 
-    stationStatistics: "stationStatistics"
+    stationStatistics: "stationStatistics",
 
-}
+    geoLocation: function (stationId) {
+        return stationId + 'loc';
+    }
+
+};

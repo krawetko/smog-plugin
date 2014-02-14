@@ -38,6 +38,11 @@ smogApi.props.stationLocation = {
     city: "city",
     address: "address",
     cityArea: "cityArea",
-    latitude: "location.latitude",
-    longitude: "location.longitude"
+    location: 'location',
+
 };
+
+smogApi.props.geoLocation = {
+    latitude: "latitude",
+    longitude: "longitude"
+}

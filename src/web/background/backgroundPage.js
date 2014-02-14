@@ -16,7 +16,7 @@ chrome.storage.onChanged.addListener(selectedStationChangedListener);
 function selectedStationChangedListener(storageChanges) {
 
     function hasSelectedStationChanged() {
-        return storageChanges.hasOwnProperty(storage.selectedStation);
+        return storageChanges.hasOwnProperty(storage.selectedStationId);
     }
 
     if (hasSelectedStationChanged()) {

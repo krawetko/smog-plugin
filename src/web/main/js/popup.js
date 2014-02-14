@@ -26,6 +26,10 @@ function refreshPage() {
             maxPollutionPercent = +stationPollutions[0][smogApi.props.stationStatistics.pollution.maxSafeValuePercent],
             lastRefreshDate = stationStatistics[smogApi.props.stationStatistics.lastRefresh];
 
+        if (maxPollutionPercent < 100) {
+            maxPollutionPercent = 100;
+        }
+
 
         var $pollutionsTableRows = $("<table/>");
 
@@ -44,46 +48,79 @@ function refreshPage() {
 }
 
 function renderAvailableOptions() {
+    function updateBodyWidth() {
+        var width = $('header').find('.dropdown-menu').width();
+        $('body').width(width + 50);
+    }
+
     chrome.storage.local.get(storage.availableStations, function (data) {
         var availableStations = data[storage.availableStations],
-            $availableStationsSelect = $('select');
+            $availableStationsSelect = $('header').find('.dropdown-menu').empty();
 
         $.each(availableStations, function (index, station) {
             $availableStationsSelect.append(buildStationOption(station));
+            chrome.storage.local.set(new Obj([storage.geoLocation(station[smogApi.props.stationLocation.id]), station[smogApi.props.stationLocation.location][smogApi.props.geoLocation.latitude] + ',' + station[smogApi.props.stationLocation.location][smogApi.props.geoLocation.longitude]]));
+
         });
-        setSelectedStation($availableStationsSelect);
+
+        updateBodyWidth();
+        setSelectedStation();
     });
 
     function buildStationOption(stationLocation) {
-        return $('<option/>', {
-                value: stationLocation[smogApi.props.stationLocation.id],
-                text: stationLocation[smogApi.props.stationLocation.address] + ", " + stationLocation[smogApi.props.stationLocation.cityArea]
+        var longStationAddress = stationLocation[smogApi.props.stationLocation.address] + ", " + stationLocation[smogApi.props.stationLocation.cityArea];
+        return $('<li/>', {
+                id: stationLocation[smogApi.props.stationLocation.id],
+                value: longStationAddress,
+                html: '<a href="#">' + longStationAddress + '</a>'
             }
-        )
+        );
     }
 
-    function setSelectedStation($availableStationsSelect) {
-        chrome.storage.local.get(storage.selectedStation, function (data) {
-            var selectedStation = data[storage.selectedStation];
-            if (selectedStation != undefined) {
-                $availableStationsSelect.val(selectedStation);
-            }
+}
+
+function setSelectedStation(selectedStationFullAddress) {
+    if (selectedStationFullAddress == undefined) {
+        chrome.storage.local.get(storage.selectedStationFullAddress, function (data) {
+            selectedStationFullAddress = data[storage.selectedStationFullAddress];
+            setSelectedStationValue(selectedStationFullAddress);
         });
+    } else {
+        setSelectedStationValue(selectedStationFullAddress);
+    }
+
+    function setSelectedStationValue(selectedStationFullAddress) {
+        if (selectedStationFullAddress != undefined) {
+            $('#selectedStation').text(selectedStationFullAddress);
+        }
+
     }
 }
 
-function submitOptions(selectedStation) {
+function submitOptions(selectedStationId, selectedStationFullAddress) {
     $("#content").animate({opacity: 0});
-    chrome.storage.local.set(new Obj([storage.selectedStation, selectedStation]));
+    setSelectedStation(selectedStationFullAddress);
+    chrome.storage.local.set(new Obj([storage.selectedStationId, selectedStationId], [storage.selectedStationFullAddress, selectedStationFullAddress]));
 }
 
 
 $(function () {
 
-    $('select').on('change', function () {
-        submitOptions($(this).val());
+    $('header .dropdown-menu').on('click', 'li', function () {
+        submitOptions($(this).attr('id'), $(this).attr('value'));
     });
-})
+
+    $('header .location').on('click', function () {
+        chrome.storage.local.get(storage.selectedStationId, function (data) {
+            var selectedStationId = data[storage.selectedStationId];
+            chrome.storage.local.get(storage.geoLocation(selectedStationId), function (data) {
+                var selectedStationLocation = data[storage.geoLocation(selectedStationId)];
+                window.open('http://maps.google.com/maps?q=' + selectedStationLocation);
+            });
+        });
+    });
+});
+
 
 chrome.storage.onChanged.addListener(stationStatisticsChangedListener);
 

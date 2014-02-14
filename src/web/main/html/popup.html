@@ -14,8 +14,18 @@
 </head>
 <body class="popup">
 <header>
-    <select id="stations" name="stations">
-    </select>
+    <div>
+        <div class="btn-group">
+            <button class="btn btn-primary location"><span id="selectedStation">Choose Location</span><img
+                    src="/resource/img/Maps-32.png" id="mapsImg"/></button>
+            <button class="btn dropdown-toggle btn-primary" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <!-- dropdown menu links -->
+            </ul>
+        </div>
+    </div>
 </header>
 <div id="content">
     <div id="statistics"></div>

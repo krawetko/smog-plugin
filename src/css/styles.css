@@ -5,6 +5,46 @@ BODY {
     margin: 0px;
 }
 
+header .btn-group {
+    width: 100%;
+}
+
+header .btn {
+    width: 90%;
+}
+
+header .btn.dropdown-toggle {
+    width: 10%;
+}
+
+header .open>.dropdown-menu {
+    display: block;
+    visibility: visible;
+}
+
+header .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus, .dropdown-submenu:hover>a, .dropdown-submenu:focus>a {
+    background-image:linear-gradient(to bottom,#08c,#04c);
+}
+
+
+header .dropdown-menu {
+    display: block;
+    visibility: hidden;
+}
+
+#mapsImg {
+    position: absolute;
+    padding-left: 5px;
+    height: 1.4em;
+    width: auto;
+}
+
+/*#selectedStation {*/
+/*background: url("/resource/img/Maps-32.png") no-repeat;*/
+/*background-size: 1.5em;*/
+/*overflow: visible;*/
+/*}*/
+
 #stations {
     width: 100%;
     margin-bottom: 0;
@@ -34,7 +74,7 @@ BODY {
     background-color: lightgray;
 }
 
-#statistics table td.pollution > div{
+#statistics table td.pollution > div {
     text-align: center;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -43,10 +83,11 @@ BODY {
 
 }
 
-#statistics table td.pollution > div.exceeded{
+#statistics table td.pollution > div.exceeded {
     background-color: #D70000;
 }
-#statistics table td.pollution > div.ok{
+
+#statistics table td.pollution > div.ok {
     background-color: green;
 }
 

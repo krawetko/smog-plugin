@@ -5,7 +5,7 @@
  * Time: 15:29
  */
 function refreshSelectedStationStatistics() {
-    chrome.storage.local.get(storage.selectedStation, function (selectedStationData) {
+    chrome.storage.local.get(storage.selectedStationId, function (selectedStationData) {
         var selectedStationStatisticsUrl = createSelectedStationStatistcsUrl(selectedStationData);
 
         $.getJSON(selectedStationStatisticsUrl, updateSelectedStationStatistics);
@@ -28,7 +28,7 @@ function refreshSelectedStationStatistics() {
     }
 
     function createSelectedStationStatistcsUrl(data) {
-        var selectedLocation = data.selectedStation;
+        var selectedLocation = data.selectedStationId;
         if (selectedLocation == undefined) {
             selectedLocation = smogApi.defaultLocationId;
         }
