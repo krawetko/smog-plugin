@@ -1,5 +1,6 @@
 function refreshPage() {
 
+
     function createTableColumn(renderedValue, cssClass) {
         return $("<td/>",
             {
@@ -96,9 +97,14 @@ function setSelectedStation(selectedStationFullAddress) {
 }
 
 function submitOptions(selectedStationId, selectedStationFullAddress) {
-    $("#content").animate({opacity: 0});
     setSelectedStation(selectedStationFullAddress);
-    chrome.storage.local.set(new Obj([storage.selectedStationId, selectedStationId], [storage.selectedStationFullAddress, selectedStationFullAddress]));
+    chrome.storage.local.get(storage.selectedStationId, function (data) {
+        var previousSelectedStationId = data[storage.selectedStationId];
+        if (selectedStationId != previousSelectedStationId) {
+            $("#content").animate({opacity: 0});
+            chrome.storage.local.set(new Obj([storage.selectedStationId, selectedStationId], [storage.selectedStationFullAddress, selectedStationFullAddress]));
+        }
+    })
 }
 
 
@@ -131,7 +137,6 @@ function stationStatisticsChangedListener(storageChanges) {
     if (hasStationStatisticsChanged()) {
         refreshPage();
     }
-
 }
 
 function descendingPollutionsSorter(pollutionA, pollutionB) {
